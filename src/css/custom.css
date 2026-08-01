@@ -1,30 +1,117 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+/* Chaos Foundry Design Tokens — Docusaurus Layer */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* CF Palette */
+  --cf-bg-deep: #030308;
+  --cf-bg-surface: #0a0b14;
+  --cf-bg-glass: rgba(12, 14, 28, 0.6);
+  --cf-accent-aurora: #7B5CFF;
+  --cf-accent-plasma: #C28A3A;
+  --cf-accent-ember: #FF3366;
+  --cf-accent-bio: #00FF88;
+  --cf-text-primary: #E2E4F0;
+  --cf-text-muted: #8B91B4;
+  --cf-glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Docusaurus overrides — dark mode */
+  --ifm-color-primary: #7B5CFF;
+  --ifm-color-primary-dark: #6a4de6;
+  --ifm-color-primary-darker: #6348d9;
+  --ifm-color-primary-darkest: #523cb4;
+  --ifm-color-primary-light: #8d70ff;
+  --ifm-color-primary-lighter: #967bff;
+  --ifm-color-primary-lightest: #b19cff;
+  --ifm-background-color: #030308;
+  --ifm-navbar-background-color: rgba(10, 11, 20, 0.85);
+  --ifm-footer-background-color: #0a0b14;
+  --ifm-font-color-base: #E2E4F0;
+  --ifm-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', monospace;
+  --ifm-link-color: #7B5CFF;
+  --ifm-code-font-size: 90%;
+  --docusaurus-highlighted-code-line-bg: rgba(123, 92, 255, 0.15);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+[data-theme='light'] {
+  --ifm-color-primary: #6a3de8;
+  --ifm-color-primary-dark: #5c30d4;
+  --ifm-color-primary-darker: #572dc9;
+  --ifm-color-primary-darkest: #4825a6;
+  --ifm-color-primary-light: #7b54ec;
+  --ifm-color-primary-lighter: #8360ee;
+  --ifm-color-primary-lightest: #a084f4;
+  --ifm-background-color: #f5f5f8;
+  --ifm-font-color-base: #1a1a2e;
+}
+
+/* Navbar */
+.navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(123, 92, 255, 0.15);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid rgba(123, 92, 255, 0.15);
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(180deg, #030308 0%, #0a0b14 100%);
+}
+
+/* Glass card utility */
+.cf-card {
+  background: var(--cf-bg-glass);
+  border: 1px solid var(--cf-glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cf-card:hover {
+  border-color: rgba(123, 92, 255, 0.3);
+  box-shadow: 0 0 1.6rem rgba(123, 92, 255, 0.1);
+}
+
+/* Badge utility */
+.cf-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.cf-badge-aurora { background: rgba(123, 92, 255, 0.15); color: #7B5CFF; }
+.cf-badge-ember { background: rgba(255, 51, 102, 0.15); color: #FF3366; }
+.cf-badge-bio { background: rgba(0, 255, 136, 0.15); color: #00FF88; }
+.cf-badge-plasma { background: rgba(194, 138, 58, 0.15); color: #C28A3A; }
+
+/* Section headings */
+.cf-section-title {
+  font-family: var(--ifm-font-family-monospace);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--cf-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Kicker label */
+.cf-kicker {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cf-accent-aurora);
 }
