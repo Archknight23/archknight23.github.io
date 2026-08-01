@@ -1,0 +1,300 @@
+/* Foundry Shell — shared prototype material system
+   Extracted from nexuschaos-deslop-phase1/prototypes/prototype-shell.css
+   and IRIS_DESLOP_HANDOFF.md typography section. */
+
+/* ---------- Panels ---------- */
+.foundry-panel {
+  @apply relative overflow-hidden border border-line bg-bg-surface/75;
+  background: linear-gradient(135deg, #11121c, #090a11);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.foundry-panel::before {
+  content: '';
+  @apply pointer-events-none absolute inset-0 z-[1] opacity-0 transition-opacity duration-500;
+  background: linear-gradient(rgba(18,18,18,0) 50%, rgba(0,0,0,0.18) 50%);
+  background-size: 100% 4px;
+}
+
+.foundry-panel:hover::before {
+  @apply opacity-100;
+}
+
+.foundry-panel-bar {
+  @apply flex items-center justify-between border-b border-line-soft px-3.5 py-2.5 font-mono text-ramp-2xs uppercase tracking-[0.18em] text-text-muted;
+}
+
+.foundry-panel-accent-left {
+  @apply pointer-events-none absolute inset-y-0 left-0 z-[2] w-[3px] bg-accent-aurora/70;
+}
+
+/* ---------- Forms ---------- */
+.foundry-field {
+  @apply flex flex-col gap-1.5;
+}
+
+.foundry-field label {
+  @apply font-mono text-ramp-2xs uppercase tracking-[0.16em] text-text-muted;
+}
+
+.foundry-field input,
+.foundry-field textarea,
+.foundry-field select {
+  @apply w-full border border-line bg-bg-deep/60 px-3 py-2 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-accent-aurora/60 focus:outline-none focus:ring-1 focus:ring-accent-aurora/40;
+}
+
+/* ---------- Buttons ---------- */
+.foundry-btn {
+  @apply relative overflow-hidden border border-accent-aurora/45 bg-accent-aurora/10 px-4 py-2 font-mono text-ramp-xs uppercase tracking-[0.12em] text-accent-aurora transition-all duration-300 hover:bg-accent-aurora hover:text-white hover:shadow-[0_0_20px_rgba(123,92,255,0.35)] active:scale-[0.98];
+}
+
+.foundry-btn-secondary {
+  @apply relative border border-line bg-bg-surface/50 px-4 py-2 font-mono text-ramp-xs uppercase tracking-[0.12em] text-text-muted transition-all duration-300 hover:border-accent-aurora/40 hover:text-text-primary active:scale-[0.98];
+}
+
+.foundry-btn-ember {
+  @apply relative overflow-hidden border border-accent-ember/45 bg-accent-ember/10 px-4 py-2 font-mono text-ramp-xs uppercase tracking-[0.12em] text-accent-ember transition-all duration-300 hover:bg-accent-ember hover:text-white hover:shadow-[0_0_20px_rgba(255,51,102,0.35)] active:scale-[0.98];
+}
+
+/* ---------- Typography ---------- */
+.foundry-kicker {
+  @apply font-mono text-ramp-2xs uppercase tracking-[0.24em] text-accent-aurora;
+}
+
+.foundry-kicker-ember {
+  @apply font-mono text-ramp-2xs uppercase tracking-[0.16em] text-accent-ember;
+}
+
+.foundry-meta {
+  @apply font-mono text-ramp-xs uppercase tracking-[0.14em] text-text-muted;
+}
+
+.foundry-display {
+  @apply font-header text-4xl uppercase tracking-wide text-text-primary sm:text-5xl;
+}
+
+.foundry-title {
+  @apply font-header text-3xl tracking-wide text-text-primary sm:text-4xl;
+}
+
+.foundry-body {
+  @apply text-sm leading-relaxed text-text-muted;
+}
+
+/* ---------- Badges ---------- */
+.foundry-badge {
+  @apply inline-flex items-center gap-1.5 border border-line bg-white/5 px-2 py-1 font-mono text-xs uppercase tracking-wider text-text-muted transition-colors;
+}
+
+.foundry-badge-incoming {
+  @apply inline-flex items-center gap-1.5 border border-accent-ember/40 bg-accent-ember/10 px-2 py-0.5 font-mono text-ramp-xs uppercase tracking-[0.12em] text-accent-ember;
+}
+
+.foundry-badge-decoded {
+  @apply inline-flex items-center gap-1.5 border border-accent-bio/40 bg-accent-bio/10 px-2 py-0.5 font-mono text-ramp-xs uppercase tracking-[0.12em] text-accent-bio;
+}
+
+/* ---------- Wire / Ticker ---------- */
+.foundry-wire {
+  @apply relative flex-1 overflow-hidden whitespace-nowrap;
+}
+
+.foundry-wire::before,
+.foundry-wire::after {
+  content: '';
+  @apply absolute top-0 bottom-0 z-10 w-6;
+}
+
+.foundry-wire::before {
+  @apply left-0;
+  background: linear-gradient(90deg, var(--bg-deep), transparent);
+}
+
+.foundry-wire::after {
+  @apply right-0;
+  background: linear-gradient(90deg, transparent, var(--bg-deep));
+}
+
+.foundry-wire-track {
+  @apply inline-flex;
+  animation: foundry-wire-scroll 24s linear infinite;
+}
+
+@keyframes foundry-wire-scroll {
+  to { transform: translateX(-50%); }
+}
+
+.foundry-wire-item {
+  @apply inline-flex items-center gap-3 px-7 text-[11px] tracking-[0.02em] text-text-muted;
+  font-family: ui-monospace, 'Cascadia Mono', 'JetBrains Mono', monospace;
+}
+
+.foundry-wire-item::before {
+  content: '◇';
+  @apply text-accent-aurora/60;
+}
+
+.foundry-wire-item.alert {
+  @apply text-accent-plasma;
+}
+
+.foundry-wire-item.alert::before {
+  content: 'ALERT';
+  @apply mr-3 border border-accent-plasma/50 px-1 py-0 text-[8px] text-accent-plasma;
+}
+
+.foundry-wire-item .wire-prefix {
+  @apply inline-flex items-center border border-accent-plasma/50 px-1 py-0 text-[8px] text-accent-plasma;
+}
+
+.foundry-wire-item:has(.wire-prefix)::before {
+  content: none;
+}
+
+.foundry-wire-live {
+  @apply inline-flex h-full flex-none items-center border-l border-line px-3 font-mono text-ramp-2xs uppercase tracking-[0.1em] text-text-muted/70;
+}
+
+.foundry-wire-live b {
+  @apply ml-1.5 font-normal text-accent-bio;
+}
+
+@media (max-width: 650px) {
+  .foundry-chrome-presence span { @apply hidden; }
+  .foundry-chrome-route .route-path { @apply hidden; }
+  .foundry-wire-live { @apply hidden; }
+  .foundry-chrome-clock { @apply px-2 text-[8px]; }
+  .foundry-wire-item { @apply px-4; }
+}
+
+/* ---------- Chrome / header helpers ---------- */
+.foundry-chrome {
+  @apply fixed inset-x-0 top-0 z-[200] border-b border-line bg-bg-deep/95;
+  background: rgba(8, 9, 14, 0.95);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.foundry-chrome-identity {
+  @apply grid h-[38px] grid-cols-[1fr_auto] items-center border-b border-line-soft px-4;
+}
+
+.foundry-chrome-route {
+  @apply inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.13em];
+}
+
+.foundry-chrome-actions {
+  @apply inline-flex items-center gap-3;
+}
+
+.foundry-chrome-wire {
+  @apply flex h-[30px] items-center;
+}
+
+.foundry-chrome-clock {
+  @apply inline-flex h-full flex-none items-center border-r border-line px-3.5 font-mono text-[10px] uppercase tracking-[0.1em] text-text-muted/80;
+}
+
+.foundry-chrome-route .route-node {
+  @apply text-accent-aurora;
+}
+
+.foundry-chrome-route .route-path {
+  @apply text-text-muted/80;
+}
+
+.foundry-beacon {
+  @apply h-2 w-2 rounded-full bg-accent-aurora shadow-[0_0_9px_var(--accent-aurora)];
+}
+
+.foundry-eye {
+  @apply relative h-[10px] w-[17px] rotate-45 transform rounded-[80%_20%] border border-accent-aurora/80 shadow-[0_0_8px_var(--accent-aurora)];
+}
+
+.foundry-eye::after {
+  content: '';
+  @apply absolute left-[5px] top-[2px] h-1 w-1 rounded-full bg-accent-aurora/80 shadow-[0_0_7px_var(--accent-aurora)];
+}
+
+.foundry-chrome-icon {
+  @apply grid h-6 w-6 place-items-center border-0 bg-transparent text-text-muted/70 transition-colors hover:text-text-primary;
+}
+
+.foundry-chrome-presence {
+  @apply inline-flex items-center gap-1.5 text-[10px] text-accent-aurora/90;
+  font-family: ui-monospace, 'Cascadia Mono', 'JetBrains Mono', monospace;
+}
+
+.foundry-chrome-presence i {
+  @apply h-1.5 w-1.5 rounded-full bg-accent-aurora shadow-[0_0_7px_var(--accent-aurora)];
+}
+
+/* ---------- Shards (expandable content) ---------- */
+.foundry-shard {
+  @apply foundry-panel;
+}
+
+.foundry-shard[open] {
+  border-color: var(--line-accent);
+  box-shadow: 0 0 26px rgba(123, 92, 255, 0.1) inset;
+}
+
+.foundry-shard-header {
+  @apply flex items-start justify-between gap-4 p-5 sm:p-6;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.foundry-shard-body {
+  @apply border-t border-line px-5 pb-6 pt-4 sm:px-6;
+}
+
+/* ---------- Dossier field cards ---------- */
+.field-card {
+  @apply relative border border-line bg-bg-deep/65 p-4;
+  border-left: 2px solid color-mix(in srgb, var(--accent-aurora) 60%, transparent);
+  background: linear-gradient(145deg, rgba(17,19,28,0.92), rgba(8,9,16,0.92));
+}
+
+.field-label {
+  @apply font-mono text-ramp-2xs uppercase tracking-[0.18em] text-accent-bio;
+}
+
+.field-title {
+  @apply my-3 font-header text-lg uppercase tracking-wide text-text-primary;
+}
+
+.field-body {
+  @apply text-sm leading-6 text-text-muted;
+}
+
+.field-body .led-by {
+  @apply block mt-2.5 border-b border-line pb-2 text-xs uppercase tracking-[0.1em] text-text-muted;
+}
+
+.field-body .led-by b {
+  @apply block mt-1 font-normal text-accent-aurora;
+}
+
+.field-body .project-source {
+  @apply inline-flex mt-3 border border-line bg-white/5 px-2 py-1 font-mono text-ramp-2xs uppercase tracking-[0.12em] text-accent-aurora;
+}
+
+/* ---------- Archivist disclosure ---------- */
+.archivist-note {
+  @apply mt-3 border border-dashed border-line p-4 font-mono text-ramp-xs uppercase leading-relaxed tracking-[0.1em] text-text-muted;
+}
+
+/* ---------- Page shell helpers ---------- */
+.page-aurora {
+  @apply bg-bg-deep relative overflow-hidden;
+}
+
+.page-aurora::before {
+  content: '';
+  @apply fixed inset-0 pointer-events-none;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(123,92,255,0.14), transparent 42%),
+    radial-gradient(circle at 85% 0%, rgba(194,138,58,0.13), transparent 40%),
+    radial-gradient(circle at 50% 120%, rgba(0,255,136,0.10), transparent 45%);
+}

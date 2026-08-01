@@ -23,6 +23,43 @@ const config: Config = {
     locales: ['en'],
   },
 
+  // CF type system — same five families as chaosfoundry.digital
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@300;400;500;600&family=Rajdhani:wght@400;500;600;700&display=swap',
+  ],
+
+  // Runs Tailwind over the CSS pipeline so CF's @apply-based stylesheets
+  // (foundry-shell.css) can be copied in verbatim and re-synced later.
+  plugins: [
+    function tailwindPlugin() {
+      return {
+        name: 'cf-tailwind',
+        configurePostCss(postcssOptions) {
+          postcssOptions.plugins.push(
+            require('tailwindcss'),
+            require('autoprefixer'),
+          );
+          return postcssOptions;
+        },
+      };
+    },
+  ],
+
   presets: [
     [
       'classic',
@@ -30,7 +67,11 @@ const config: Config = {
         docs: false,
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            './src/css/tailwind.css',
+            './src/css/foundry-shell.css',
+          ],
         },
       } satisfies Preset.Options,
     ],
@@ -40,6 +81,7 @@ const config: Config = {
     image: 'img/og-image.png',
     navbar: {
       title: 'CHAOS FOUNDRY',
+      logo: {alt: 'The Chaos Foundry', src: 'img/logo.webp'},
       items: [
         {to: '/', label: 'Home', position: 'left'},
         {to: '/projects', label: 'Projects', position: 'left'},
@@ -85,8 +127,8 @@ const config: Config = {
     },
     colorMode: {
       defaultMode: 'dark',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
   } satisfies Preset.ThemeConfig,
 };

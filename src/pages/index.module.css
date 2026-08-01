@@ -1,19 +1,49 @@
 .hero {
-  padding: 4rem 0 3rem;
-  text-align: center;
+  padding: 3.5rem 0 4rem;
+  text-align: left;
+  /* Fill the viewport so the deep field runs to the footer instead of
+     leaving a band of empty ground under a short page. */
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  display: flex;
+  align-items: center;
+}
+
+/* Banner left, work list right. Collapses to stacked below Infima's
+   997px breakpoint, the same one the navbar uses. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+.identity {
+  position: sticky;
+  top: 5rem;
+}
+
+@media (max-width: 996px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .identity {
+    position: static;
+  }
 }
 
 .banner {
-  max-width: 700px;
+  max-width: 100%;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .tagline {
-  font-family: var(--ifm-font-family-monospace);
-  letter-spacing: 0.12em;
+  font-family: var(--cf-font-display-mono);
+  letter-spacing: var(--track-wide);
   text-transform: uppercase;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   color: var(--cf-text-muted);
   margin-bottom: 1rem;
 }
@@ -22,36 +52,27 @@
   font-size: 1.1rem;
   color: var(--cf-text-primary);
   max-width: 550px;
-  margin: 0 auto 2rem;
+  margin: 0 0 1rem;
   line-height: 1.6;
 }
 
-.buttons {
+/* Single column of pills rather than a card grid */
+.projectColumn {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
-.projects {
-  padding: 3rem 0;
-}
-
-.projectGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
-  margin-top: 1.5rem;
-}
-
-.projectCard {
-  padding: 1.25rem;
+.projectPill {
+  padding: 1rem 1.25rem;
   text-decoration: none;
   color: inherit;
   display: block;
+  border-radius: var(--radius-chamfer);
 }
 
-.projectCard:hover {
+.projectPill:hover {
   text-decoration: none;
   color: inherit;
 }
@@ -60,7 +81,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  gap: 1rem;
 }
 
 .projectHeader h3 {
@@ -69,9 +90,43 @@
   font-family: var(--ifm-font-family-monospace);
 }
 
-.projectCard p {
-  margin: 0;
+/* grid-template-rows 0fr -> 1fr is the one way to animate to an intrinsic
+   height. The inner wrapper needs min-height:0 or it refuses to collapse. */
+.projectReveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--ease-sweep);
+}
+
+.projectRevealInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* focus-within so keyboard users get the same reveal as hover */
+.projectPill:hover .projectReveal,
+.projectPill:focus-within .projectReveal {
+  grid-template-rows: 1fr;
+}
+
+.projectSnippet {
+  margin: 0.75rem 0 0.5rem;
   font-size: 0.9rem;
   color: var(--cf-text-muted);
-  line-height: 1.5;
+  line-height: 1.55;
+  max-width: 65ch;
+}
+
+.projectCta {
+  font-family: var(--cf-font-display-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--cf-accent-aurora);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectReveal {
+    transition: none;
+  }
 }

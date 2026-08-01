@@ -73,18 +73,33 @@ function RepoCard({repo}: {repo: Repo}) {
 export default function Projects(): React.JSX.Element {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     fetch('https://api.github.com/users/Archknight23/repos?per_page=100&sort=updated')
-      .then((r) => r.json())
+      .then((r) => {
+        // Unauthenticated calls are capped at 60/hr per IP; on 403 GitHub
+        // returns a JSON object, not an array, so status has to be checked
+        // before the body is treated as a list.
+        if (!r.ok) {
+          throw new Error(`GitHub API responded ${r.status}`);
+        }
+        return r.json();
+      })
       .then((data) => {
+        if (!Array.isArray(data)) {
+          throw new Error('Unexpected GitHub API payload');
+        }
         const filtered = data
           .filter((r: Repo) => !r.fork)
           .sort((a: Repo, b: Repo) => b.stargazers_count - a.stargazers_count);
         setRepos(filtered);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch(() => {
+        setFailed(true);
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -97,9 +112,22 @@ export default function Projects(): React.JSX.Element {
         </div>
       </header>
       <main className="container" style={{padding: '2rem 0 4rem'}}>
-        {loading ? (
-          <p className={styles.loading}>Loading repositories…</p>
-        ) : (
+        {loading && <p className={styles.loading}>Loading repositories…</p>}
+
+        {!loading && failed && (
+          <p className={styles.loading}>
+            Repository feed unavailable — GitHub is rate-limiting us.{' '}
+            <a href="https://github.com/Archknight23?tab=repositories">
+              Browse the repos directly →
+            </a>
+          </p>
+        )}
+
+        {!loading && !failed && repos.length === 0 && (
+          <p className={styles.loading}>No public repositories to show yet.</p>
+        )}
+
+        {!loading && !failed && repos.length > 0 && (
           <div className={styles.grid}>
             {repos.map((repo) => (
               <RepoCard key={repo.name} repo={repo} />

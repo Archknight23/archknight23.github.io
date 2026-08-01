@@ -1,0 +1,50 @@
+/* tokens.css — shared design substrate.
+ * The contract the deck & TUI already speak (deck.css), lifted to :root so the
+ * web consumes the same source. Imported before index.css in main.jsx.
+ * Custom-property substitution is resolved at use time, so referencing
+ * --accent-* (defined in index.css :root) here is order-independent.
+ */
+:root {
+  /* Type ramp — six stops (mirrors deck.css). Opt-in via text-ramp-* utilities. */
+  --fs-2xs: 0.5625rem; /* 9px  — silkscreen, bezel labels */
+  --fs-xs:  0.625rem;  /* 10px — kickers, counts, meta    */
+  --fs-sm:  0.6875rem; /* 11px — readouts, controls       */
+  --fs-md:  0.75rem;   /* 12px — body data, status bar    */
+  --fs-lg:  0.875rem;  /* 14px — list titles, messages    */
+  --fs-xl:  1.0625rem; /* 17px — module titles            */
+
+  /* Tracking pairs */
+  --track-caps: 0.14em;
+  --track-wide: 0.18em;
+
+  /* Border tiers — three, one alpha each, tinted by the page's accent. */
+  --line-accent: var(--accent-aurora); /* pages override via .page-* */
+  --line-soft:   color-mix(in srgb, var(--line-accent) 14%, transparent);
+  --line:        color-mix(in srgb, var(--line-accent) 26%, transparent);
+  --line-strong: color-mix(in srgb, var(--line-accent) 48%, transparent);
+
+  /* Glow budget — two levels (offset+blur only; pair with a tint). */
+  --glow-sm: 0 0 0.45rem;
+  --glow-lg: 0 0 1.6rem;
+
+  /* Radii family — one notched "soft chamfer" set + glass radii. */
+  --radius-chamfer:   6px 14px 6px 6px;
+  --radius-chamfer-sm: 4px 8px 4px 4px;
+  --radius-glass:    12px;
+  --radius-glass-lg: 16px;
+  --radius-glass-xl: 20px;
+
+  /* Channel accents — defined once. Stream = ember (unified, per spec §5). */
+  --ch-stream:  var(--accent-ember);
+  --ch-archive: var(--accent-aurora);
+  --ch-store:   var(--accent-plasma);
+  --ch-network: var(--accent-plasma);
+  --ch-success: var(--accent-bio);
+  --ch-alert:   var(--accent-ember);
+
+  /* Motion easings (mirrors deck.css). */
+  --ease-breath: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-led:    cubic-bezier(0.32, 0, 0.18, 1);
+  --ease-sweep:  cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-probe:  cubic-bezier(0.32, 0, 0.32, 1);
+}
